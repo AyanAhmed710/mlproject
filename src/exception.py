@@ -1,12 +1,7 @@
 import sys
-import logging
+from src.logger import logging
 
-# Setup logging to a file
-logging.basicConfig(
-    filename="app.log", 
-    format="[%(asctime)s] %(lineno)d %(name)s -%(levelname)s - %(message)s",
-    level=logging.INFO
-)
+
 
 def error_message_detail(error, error_detail: sys):
     _, _, exc_info = error_detail.exc_info()
@@ -27,11 +22,3 @@ class CustomException(Exception):
         return self.error_message
     
 
-if __name__ == "__main__":
-    logging.info("Logging has started")
-
-    try:
-        a = 1 / 0   # This will cause ZeroDivisionError
-    except Exception as e:
-        logging.error("Exception occurred")
-        raise CustomException(str(e), sys)
