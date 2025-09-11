@@ -30,7 +30,8 @@ class DataTransformation:
             numerical_features=["writing score","reading score"]
             categorical_features=["gender","race/ethnicity","parental level of education","lunch","test preparation course"]
 
-
+            print("Unique values in categorical columns:")
+           
             num_pipeline=Pipeline(
                 steps=[
                     ("Imputar",SimpleImputer(strategy="median")),
@@ -71,6 +72,12 @@ class DataTransformation:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
 
+            categorical_features=["gender","race/ethnicity","parental level of education","lunch","test preparation course"]
+
+            print("Unique values in categorical columns:")
+            for col in categorical_features:
+                  print(col, train_df[col].unique())
+
             logging.info("Read of train and test data completed")
 
             logging.info("Obtaining preprocessing objects")
@@ -98,6 +105,7 @@ class DataTransformation:
             test_arr=np.c_[input_feature_test_array,np.array(target_test)]
 
             logging.info("Preprocessing Completed")
+            
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
